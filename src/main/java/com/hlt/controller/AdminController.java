@@ -31,7 +31,6 @@ public class AdminController {
         return model;
     }
 
-
     @RequestMapping("/remove")
     public String remove(HttpSession session){
         session.removeAttribute("success");
