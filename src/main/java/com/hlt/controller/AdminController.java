@@ -28,7 +28,6 @@ public class AdminController {
              //model.addObject("loginerMessage","您输入的用户名或密码错误！");
              model.setViewName("JSP/loginer");
         }
-
         return model;
     }
 
