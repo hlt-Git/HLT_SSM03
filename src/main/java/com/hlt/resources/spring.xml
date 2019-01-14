@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					   http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	   					   http://www.springframework.org/schema/tx
+	   					   http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	   					   http://www.springframework.org/schema/context
+	   					   http://www.springframework.org/schema/context/spring-context-4.2.xsd" >
+
+    <!-- 开启注解扫描 -->
+    <context:component-scan base-package="com.hlt"/>
+
+    <!-- 创建数据源对象 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/ssm"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </bean>
+    <!-- 创建sqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 依赖于数据源对象 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 依赖于mapper文件的位置 -->
+        <property name="mapperLocations">
+            <array>
+                <value>classpath:com/hlt/dao/ProductDaoMapper.xml</value>
+                <value>classpath:com/hlt/dao/ShoppingDaoMapper.xml</value>
+                <value>classpath:com/hlt/dao/AdminDaoMapper.xml</value>
+                <value>classpath:com/hlt/dao/UserDaoMapper.xml</value>
+            </array>
+        </property>
+        <property name="typeAliasesPackage" value="com.hlt.entity"/>
+    </bean>
+
+    <!-- 创建所有的dao对象   默认id  接口名首字母小写   -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 依赖于SqlSessionFactory对象 -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!-- 依赖于接口对象 -->
+        <property name="basePackage" value="com.hlt.dao"></property>
+    </bean>
+
+    <!-- 创建事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 依赖于数据源对象 -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--使事务控制注解生效-->
+    <tx:annotation-driven />
+
+</beans>

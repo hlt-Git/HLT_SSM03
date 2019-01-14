@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					   http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	   					   http://www.springframework.org/schema/context
+	   					   http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	   					   http://www.springframework.org/schema/mvc
+	   					   http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd" >
+
+    <!-- 开启注解扫描 -->
+    <context:component-scan base-package="com.hlt"/>
+    <!-- 启用注解驱动 -->
+    <mvc:annotation-driven/>
+
+    <!--
+         视图解析器
+         /index.jsp
+     -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!-- 开启静态资源拦截器，可以访问静态资源：css,html等 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- 强制登录 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/user/login"/>
+            <mvc:exclude-mapping path="/user/regist"/>
+            <mvc:exclude-mapping path="/user/checkUsername"/>
+            <mvc:exclude-mapping path="/code/createCode"/>
+            <mvc:exclude-mapping path="/admin/login"/>
+            <bean class="com.hlt.Interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+</beans>
