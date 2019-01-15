@@ -36,5 +36,4 @@ public class AdminController {
         session.removeAttribute("success");
         return "index";
     }
-
 }
