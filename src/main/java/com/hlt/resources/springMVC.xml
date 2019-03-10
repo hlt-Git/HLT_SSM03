@@ -27,7 +27,7 @@
     <!-- 开启静态资源拦截器，可以访问静态资源：css,html等 -->
     <mvc:default-servlet-handler/>
 
-    <!-- 强制登录 -->
+<!--    &lt;!&ndash; 强制登录 &ndash;&gt;
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
@@ -38,6 +38,6 @@
             <mvc:exclude-mapping path="/admin/login"/>
             <bean class="com.hlt.Interceptor.LoginInterceptor"></bean>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 
 </beans>

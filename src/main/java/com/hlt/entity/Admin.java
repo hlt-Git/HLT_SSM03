@@ -15,7 +15,6 @@ public class Admin {
     public Admin() { super(); }
 
     public Admin(String username, Integer password) {
-        super();
         this.username = username;
         this.password = password;
     }
