@@ -1,6 +1,5 @@
 package com.hlt.service;
 
-
 import com.hlt.dao.AdminDao;
 import com.hlt.entity.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
